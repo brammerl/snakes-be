@@ -17,14 +17,14 @@ app.get('/api/snakes', async(req, res) => {
 
 
 app.post('/api/snakes/', async(req, res) => {
-  const newData = req.body;
+  
   try {
     const data = await client.query(`
-    insert into snakes (species, spicy_factor, venomous, care_level)
-    values ($1, $2, $3, $4)
-    returning *;`,
-    [newData.species, newData.spicy_factor, newData.venomous, newData.care_level]
-    );
+    INSERT INTO snakes (species, spicy_factor, venomous, care_level)
+    VALUES ($1, $2, $3, $4)
+    returning *
+    `,
+    [req.body.species, req.body.spicy_factor, req.body.venomous, req.body.care_level]);
 
     res.json(data.rows[0]);
   } catch(e) {
