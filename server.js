@@ -27,8 +27,9 @@ app.get('/api/snakes/:id', async(req, res) => {
     from snakes
     join categories
     on snakes.care_id = categories.id
-    WHERE id=$1`,
-    [id]
+    WHERE id=$1
+    returning *;
+    `, [id]
   );
 
  
