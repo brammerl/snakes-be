@@ -15,6 +15,14 @@ app.get('/api/snakes', async(req, res) => {
   res.json(data.rows);
 });
 
+app.get('/api/snakes/:id', async(req, res) => {
+  const id = req.params.id;
+  const data = await client.query(
+    'SELECT * from songs where id=$1',
+    [id]
+  );
+  res.json(data.rows[0]);
+});
 
 app.post('/api/snakes/', async(req, res) => {
   
