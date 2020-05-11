@@ -10,13 +10,17 @@ async function run() {
     await client.connect();
 
     // run a query to create tables
-    await client.query(`         
+    await client.query(`
+                CREATE TABLE categories (
+                  id SERIAL PRIMARY KEY NOT NULL,
+                  care_level VARCHAR(512) NOT NULL
+                );
                 CREATE TABLE snakes (
                     id SERIAL PRIMARY KEY NOT NULL,
                     species VARCHAR(512) NOT NULL,
                     spicy_factor INTEGER NOT NULL,
                     venomous BOOLEAN NOT NULL,
-                    care_level VARCHAR(512) NOT NULL
+                    care_id INTEGER NOT NULL REFERENCES categories(id)
             );
         `);
 
