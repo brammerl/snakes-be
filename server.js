@@ -27,7 +27,7 @@ app.get('/api/snakes/:id', async(req, res) => {
     FROM snakes
     JOIN categories
     on snakes.care_id = categories.id
-    WHERE id=$1
+    WHERE snakes.id=$1
     `, [id]
   );
 
@@ -41,7 +41,7 @@ app.put('/api/snakes/:id', async(req, res) => {
   const data = await client.query(`
   UPDATE snakes 
   SET species=$1
-  WHERE id=$2
+  WHERE snakes.id=$2
   returning *;
 `, [newSpecies, id]);
 
@@ -53,7 +53,7 @@ app.delete('/api/snakes/:id', async(req, res) => {
   try {
     const data = await client.query(`
     DELETE FROM snakes 
-    WHERE id=$1
+    WHERE snakes.id=$1
     returning *;
   `, [id]);
 
