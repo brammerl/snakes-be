@@ -24,10 +24,11 @@ app.get('/api/snakes/:id', async(req, res) => {
   const id = req.params.id;
   const data = await client.query(
     `SELECT snakes.id, snakes.species, snakes.spicy_factor, snakes.venomous, categories.care_level
-    from snakes
-    join categories
-    on snakes.care_id = categories.id
+    FROM snakes
     WHERE id=$1
+    JOINcategories
+    on snakes.care_id = categories.id
+    
     returning *;
     `, [id]
   );
